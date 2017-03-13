@@ -244,7 +244,7 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
             mInterface.setFlashModes(mFlashModes);
             onFlashModesLoaded();
 
-            createPreview();
+            createPreview(previewSize);
             mMediaRecorder = new MediaRecorder();
 
             onCameraOpened();
@@ -297,7 +297,7 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
         mCamera.setDisplayOrientation(previewOrientation);
     }
 
-    private void createPreview() {
+    private void createPreview(Camera.Size previewSize) {
         Activity activity = getActivity();
         if (activity == null) return;
         if (mWindowSize == null)
@@ -307,7 +307,11 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
         if (mPreviewFrame.getChildCount() > 0 && mPreviewFrame.getChildAt(0) instanceof CameraPreview)
             mPreviewFrame.removeViewAt(0);
         mPreviewFrame.addView(mPreviewView, 0);
-        mPreviewView.setAspectRatio(mWindowSize.x, mWindowSize.y);
+        if (mWindowSize.x > mWindowSize.y) {
+            mPreviewView.setAspectRatio(previewSize.width, previewSize.height);
+        } else {
+            mPreviewView.setAspectRatio(previewSize.height, previewSize.width);
+        }
     }
 
     @Override

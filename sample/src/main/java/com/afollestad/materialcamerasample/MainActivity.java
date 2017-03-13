@@ -68,9 +68,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .saveDir(saveDir)
                 .showPortraitWarning(true)
                 .allowRetry(true)
-                .defaultToFrontFacing(true)
                 .allowRetry(true)
                 .autoSubmit(false)
+                .defaultToFrontFacing(false)
+                //.videoEncodingBitRate((int)(250 * 1024 * 8))
+                //.audioEncodingBitRate(12200)
+                .qualityProfile(MaterialCamera.QUALITY_480P)
+                .videoPreferredHeight(480)
+                //.videoPreferredAspect(16f/9f)
+                .forceCamera1()
                 .labelConfirm(R.string.mcam_use_video);
 
         if (view.getId() == R.id.launchCameraStillshot)
